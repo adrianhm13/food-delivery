@@ -17,7 +17,7 @@ import Grid from "@mui/material/Grid";
 export default function Home() {
   return (
     <Container maxWidth={false} disableGutters>
-      <Box sx={{ backgroundColor: "primary.main", textAlign: "center" }}>
+      <Box sx={{ backgroundColor: "primary.main", textAlign: "center", paddingTop: 8 }}>
         <Typography
           paddingX={3}
           fontWeight={500}
@@ -52,7 +52,7 @@ function BackgroundPresentation() {
     <Box
       sx={{
         position: "relative",
-        height: { xs: "75vh", md: "79vh" },
+        height: { xs: "75vh", md: "88vh" },
       }}
     >
       <Box
