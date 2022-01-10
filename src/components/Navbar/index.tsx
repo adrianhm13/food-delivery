@@ -39,7 +39,7 @@ export default function Navbar() {
     setAnchorElUser(null);
   };
   return (
-    <AppBar position="static" sx={{ boxShadow: 0 }}>
+    <AppBar position="fixed" sx={{ boxShadow: 0, zIndex: 1210}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
