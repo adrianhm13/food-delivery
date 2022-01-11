@@ -8,30 +8,12 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import Card from "@mui/material/Card";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import CardHeader from "@mui/material/CardHeader";
-import TestPicture from "../../assets/pictures/menu-background-small.jpg";
-import Collapse from "@mui/material/Collapse";
-import { ExpandMore } from "./style";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import DishCard from "./DishCard";
 
 export default function Menu() {
   return (
     <Container maxWidth={false} disableGutters>
-      <Box
-        sx={{
-          backgroundImage: {
-            xs: `url(${BackgroundSmall})`,
-            md: `url(${BackgroundMedium})`,
-          },
-          backgroundSize: "cover",
-          backgroundPositionY: "60%",
-          height: "200px",
-        }}
-      />
+      <HeaderBackground />
       <Drawer
         variant="permanent"
         anchor="right"
@@ -56,89 +38,30 @@ export default function Menu() {
           AAABBBAABBBAABBBAABBBAAA
         </Box>
       </Drawer>
-      <Container maxWidth={"lg"}>
-        <Box
-          paddingY={3}
-          sx={{
-            paddingRight: {
-              xs: "0",
-              md: "300px",
-            },
-          }}
-        >
+      <Container maxWidth={"xl"}>
+        <Box paddingY={3} sx={{ paddingRight: { xs: "0", md: "300px" }}}>
+          <DishCard />
           <DishCard />
         </Box>
-
         <PhoneDrawer />
       </Container>
     </Container>
   );
 }
 
-function DishCard() {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const handleExpandClick = () => {
-    setIsExpanded(!isExpanded);
-  };
+function HeaderBackground() {
   return (
-    <Card>
-      <CardActionArea onClick={handleExpandClick}>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <CardHeader
-              title="Lorem ipsum dolor sit amet, consectetur adipiscing elitu"
-              subheader="
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit sem in velit viverra, ut ultricies risus gravida. Nam convallis laoreet massa at facilisis. "
-            />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
-              <Typography variant={"h5"} padding={2} color={"secondary"}>
-                $12
-              </Typography>
-              <ExpandMore
-                expand={isExpanded}
-                aria-expanded={isExpanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon color={"secondary"} />
-              </ExpandMore>
-            </Box>
-            <Collapse in={isExpanded} unmountOnExit>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-              suscipit sem in velit viverra, ut ultricies risus gravida. Nam
-              convallis laoreet massa at facilisis. Pellentesque habitant morbi
-              tristique senectus et netus et malesuada fames ac turpis egestas.
-            </Collapse>
-          </Box>
-          <CardMedia
-            component="img"
-            image={TestPicture}
-            alt="food dish"
-            sx={{
-              width: {
-                xs: "40%",
-                md: "25%",
-              },
-            }}
-          />
-        </Box>
-      </CardActionArea>
-    </Card>
+    <Box
+      sx={{
+        backgroundImage: {
+          xs: `url(${BackgroundSmall})`,
+          md: `url(${BackgroundMedium})`,
+        },
+        backgroundSize: "cover",
+        backgroundPositionY: "60%",
+        height: "200px",
+      }}
+    />
   );
 }
 
@@ -153,13 +76,7 @@ function PhoneDrawer() {
         variant={"outlined"}
         onClick={() => setIsOpen(true)}
         startIcon={<ShoppingBasketIcon />}
-        sx={{
-          display: {
-            xs: "inline-flex",
-            md: "none",
-          },
-          width: 1,
-        }}
+        sx={{ display: { xs: "inline-flex", md: "none" }, width: 1 }}
       >
         Cart
       </Button>
