@@ -26,7 +26,7 @@ type DishInformationProps = {
 
 type OptionsDishProps = {
   priceTest: number;
-  onExpanded: React.Dispatch<React.SetStateAction<boolean>>
+  onExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function DishCard() {
@@ -38,7 +38,7 @@ export default function DishCard() {
   };
 
   return (
-    <Card raised sx={{mb: 3}}>
+    <Card raised sx={{ mb: 3 }}>
       <CardActionArea onClick={() => handleExpandClick()} component="div">
         <Box
           sx={{
@@ -57,7 +57,7 @@ export default function DishCard() {
               in={isExpanded}
               timeout="auto"
             >
-              <OptionsDish priceTest={priceTest} onExpanded={setIsExpanded}/>
+              <OptionsDish priceTest={priceTest} onExpanded={setIsExpanded} />
             </Collapse>
           </Box>
           <CardMedia
@@ -80,13 +80,7 @@ function DishInformation({ isExpanded }: DishInformationProps) {
         subheader="
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit sem in velit viverra, ut ultricies risus gravida. Nam convallis laoreet massa at facilisis. "
       />
-      <Box
-        marginTop={1}
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
+      <Box marginTop={1} sx={{ display: "flex", flexDirection: "row" }}>
         <Typography variant={"h5"} padding={2} color={"secondary"}>
           $12
         </Typography>
@@ -105,8 +99,8 @@ function DishInformation({ isExpanded }: DishInformationProps) {
 function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(priceTest);
-  
-  const uniqueId = Math.random().toLocaleString()
+
+  const uniqueId = Math.random().toLocaleString();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
     e.stopPropagation();
@@ -114,9 +108,9 @@ function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
     for (let [key] of formData.entries()) {
       console.log(key); //add it to an array
     }
-    console.log(total)
-    console.log(quantity)
-    onExpanded(!onExpanded)
+    console.log(total);
+    console.log(quantity);
+    onExpanded(!onExpanded);
   };
 
   const handleIncrement = () => {

@@ -17,12 +17,7 @@ export default function Menu() {
       <Drawer
         variant="permanent"
         anchor="right"
-        sx={{
-          display: {
-            xs: "none",
-            md: "block",
-          },
-        }}
+        sx={{ display: { xs: "none", md: "block" } }}
       >
         <Box
           sx={{
@@ -39,7 +34,7 @@ export default function Menu() {
         </Box>
       </Drawer>
       <Container maxWidth={"xl"}>
-        <Box paddingY={3} sx={{ paddingRight: { xs: "0", md: "300px" }}}>
+        <Box paddingY={3} sx={{ paddingRight: { xs: "0", md: "300px" } }}>
           <DishCard />
           <DishCard />
         </Box>
