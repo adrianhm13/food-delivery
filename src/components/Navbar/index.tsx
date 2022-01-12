@@ -48,7 +48,11 @@ export default function Navbar() {
   };
 
   const handleCloseNavMenu = (page: string) => {
-    history.push(`/${page.toLowerCase()}`);
+    if (page === "Home") {
+      history.push("/");
+    } else {
+      history.push(`/${page.toLowerCase()}`);
+    }
     setAnchorElNav(null);
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -245,8 +249,12 @@ function SignInMenu() {
         <MenuItem onClick={handleClickLogin}>Login</MenuItem>
         <MenuItem onClick={handleClickSignup}>Signup</MenuItem>
       </Menu>
-      {openLogin && <ModalLogin openLogin={openLogin} onOpenLogin={setOpenLogin}/>}
-      {openSignup && <ModalSignup openSignup={openSignup} onOpenSignup={setOpenSignup}/>}
+      {openLogin && (
+        <ModalLogin openLogin={openLogin} onOpenLogin={setOpenLogin} />
+      )}
+      {openSignup && (
+        <ModalSignup openSignup={openSignup} onOpenSignup={setOpenSignup} />
+      )}
     </div>
   );
 }

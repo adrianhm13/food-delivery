@@ -9,25 +9,28 @@ import Layout from "./components/Layout";
 import Dashboard from "./pages/dashboard";
 import Home from "./pages/home";
 import Menu from "./pages/menu";
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Layout>
-          <Switch>
-            <Route exact path="/home">
-              <Home />
-            </Route>
-            <Route exact path="/menu">
-              <Menu />
-            </Route>
-            <Route exact path="/dashboard">
-              <Dashboard />
-            </Route>
-          </Switch>
-        </Layout>
-      </BrowserRouter>
+      <AuthContextProvider>
+        <BrowserRouter>
+          <Layout>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/menu">
+                <Menu />
+              </Route>
+              <Route exact path="/dashboard">
+                <Dashboard />
+              </Route>
+            </Switch>
+          </Layout>
+        </BrowserRouter>
+      </AuthContextProvider>
     </ThemeProvider>
   );
 }
