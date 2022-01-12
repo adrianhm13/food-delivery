@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useLogout } from "../../hooks/useLogout";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,9 +16,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ModalLogin from "../ModalLogin";
 import ModalSignup from "../ModalSignup";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const pages = ["Home", "Menu"];
-const settings = ["Account", "Orders", "Logout"];
 
 type NavMenuPagesPhoneProps = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
@@ -26,10 +27,9 @@ type NavMenuPagesPhoneProps = {
 };
 
 type SettingsUserMenuProps = {
-  anchorElUser: HTMLElement | null;
-  handleCloseNavMenu: (page: string) => void;
-  handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
-  handleCloseUserMenu: () => void;
+  user: {
+    displayName?: string;
+  };
 };
 
 type NavMenuPagesProps = {
@@ -37,10 +37,9 @@ type NavMenuPagesProps = {
 };
 
 export default function Navbar() {
-  const [user, setUser] = useState(false);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
+  const { user } = useAuthContext();
   const history = useHistory();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -55,12 +54,7 @@ export default function Navbar() {
     }
     setAnchorElNav(null);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+
   return (
     <AppBar position="fixed" sx={{ boxShadow: 0, zIndex: 1210 }}>
       <Container maxWidth="xl">
@@ -73,14 +67,7 @@ export default function Navbar() {
           />
           <LogoSmDevice />
           <NavMenuPages handleCloseNavMenu={handleCloseNavMenu} />
-          {user && (
-            <SettingsUserMenu
-              anchorElUser={anchorElUser}
-              handleCloseNavMenu={handleCloseNavMenu}
-              handleOpenUserMenu={handleOpenUserMenu}
-              handleCloseUserMenu={handleCloseUserMenu}
-            />
-          )}
+          {user && <SettingsUserMenu user={user} />}
           {!user && <SignInMenu />}
         </Toolbar>
       </Container>
@@ -126,31 +113,45 @@ function NavMenuPagesPhone({
 }
 
 function SettingsUserMenu(props: SettingsUserMenuProps) {
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const { logout } = useLogout();
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+    console.log(event.currentTarget)
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   return (
     <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title="Open settings">
-        <IconButton onClick={props.handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+      <Tooltip title={`Check your profile ${props.user.displayName}`}>
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          <Avatar
+            alt={props.user.displayName}
+            src="/static/images/avatar/2.jpg"
+          />
         </IconButton>
       </Tooltip>
       <Menu
         sx={{ mt: "45px" }}
         id="menu-appbar"
-        anchorEl={props.anchorElUser}
+        anchorEl={anchorElUser}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        keepMounted
         transformOrigin={{ vertical: "top", horizontal: "right" }}
-        open={Boolean(props.anchorElUser)}
-        onClose={props.handleCloseUserMenu}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem
-            key={setting}
-            onClick={() => props.handleCloseNavMenu(setting)}
-          >
-            <Typography textAlign="center">{setting}</Typography>
-          </MenuItem>
-        ))}
+        <MenuItem onClick={handleCloseUserMenu}>
+          <Typography textAlign="center">Account</Typography>
+        </MenuItem>
+        <MenuItem onClick={handleCloseUserMenu}>
+          <Typography textAlign="center">Orders</Typography>
+        </MenuItem>
+        <MenuItem onClick={logout}>
+          <Typography textAlign="center">Logout</Typography>
+        </MenuItem>
       </Menu>
     </Box>
   );

@@ -7,7 +7,6 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuthContext } from "./useAuthContext";
-import "firebase/compat/auth";
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false);
@@ -32,7 +31,7 @@ export const useSignup = () => {
       }
 
       // //Update displayName to the user
-      updateUserProfile(response.user, username);
+      await updateUserProfile(response.user, username);
 
       //Add user to users collection Firebase
       await setDoc(doc(db, "users", response.user.uid), {
@@ -59,13 +58,14 @@ export const useSignup = () => {
   };
 
   const updateUserProfile = async (user: User, username: string) => {
-    await updateProfile(user, {
-      displayName: username,
-    })
-      .then(() => {
-        console.log("Profile updated");
-      })
-      .catch((error) => console.log(error));
+    try {
+      await updateProfile(user, {
+        displayName: username,
+      });
+      console.log("Profile updated");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //Cleanup function in case the async function it's active while the component it's unmounted

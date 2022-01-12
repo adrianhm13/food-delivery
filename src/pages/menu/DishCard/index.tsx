@@ -19,6 +19,7 @@ import Checkbox from "@mui/material/Checkbox";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import * as Style from "./style";
 
 type DishInformationProps = {
   isExpanded: boolean;
@@ -28,7 +29,6 @@ type OptionsDishProps = {
   priceTest: number;
   onExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
 export default function DishCard() {
   const [isExpanded, setIsExpanded] = useState(false);
   const priceTest = 12;
@@ -38,7 +38,7 @@ export default function DishCard() {
   };
 
   return (
-    <Card raised sx={{ mb: 3 }}>
+    <Card sx={Style.Card}>
       <CardActionArea onClick={() => handleExpandClick()} component="div">
         <Box
           sx={{
@@ -128,13 +128,7 @@ function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
 
   return (
     <Box padding={1} bgcolor={"grey.200"}>
-      <FormControl
-        sx={{
-          m: 3,
-        }}
-        component="fieldset"
-        variant="standard"
-      >
+      <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
         <FormLabel component="legend">Pick your options</FormLabel>
         <form id={uniqueId} onSubmit={handleSubmit}>
           <FormGroup row>
@@ -168,14 +162,7 @@ function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
           </FormGroup>
         </form>
       </FormControl>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: 1,
-          padding: 1,
-        }}
-      >
+      <Box sx={Style.QuantityDish}>
         <ButtonGroup variant="text" color="secondary">
           <Button onClick={() => handleDecrement()}>
             <RemoveIcon />

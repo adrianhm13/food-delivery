@@ -1,3 +1,5 @@
+import { useLogin } from "../../hooks/useLogin";
+
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -26,18 +28,19 @@ type ModalLoginProps = {
   onOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function ModalLogin({
-  openLogin,
-  onOpenLogin,
-}: ModalLoginProps) {
+export default function ModalLogin(props: ModalLoginProps) {
+  const { openLogin, onOpenLogin } = props;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { error, login, isPending } = useLogin();
+
   const handleClose = () => onOpenLogin(false);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(email, password);
+    const response = login(email, password);
+    response.then(() => onOpenLogin(false));
   };
   return (
     <Modal
@@ -79,6 +82,7 @@ export default function ModalLogin({
                 type="password"
                 color="secondary"
                 variant="outlined"
+                helperText={error}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Stack>
@@ -90,7 +94,7 @@ export default function ModalLogin({
             type="submit"
             form="login-form"
           >
-            Signin
+            {isPending ? "Loading" : "Login"}
           </Button>
         </Box>
       </Fade>

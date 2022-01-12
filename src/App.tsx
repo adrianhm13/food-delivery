@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { Switch, BrowserRouter, Route } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 import { theme } from "./theme/theme";
 import "./App.css";
@@ -9,12 +10,13 @@ import Layout from "./components/Layout";
 import Dashboard from "./pages/dashboard";
 import Home from "./pages/home";
 import Menu from "./pages/menu";
-import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
+  const { authIsReady } = useAuthContext();
+
   return (
     <ThemeProvider theme={theme}>
-      <AuthContextProvider>
+      {authIsReady && (
         <BrowserRouter>
           <Layout>
             <Switch>
@@ -30,7 +32,7 @@ function App() {
             </Switch>
           </Layout>
         </BrowserRouter>
-      </AuthContextProvider>
+      )}
     </ThemeProvider>
   );
 }

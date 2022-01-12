@@ -2,15 +2,13 @@ import { createContext, useEffect, useReducer } from "react";
 import { auth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 
-export const AuthContext = createContext<AuthContextType | null>(null);
-
 type AuthState = {
   user: object | null;
   authIsReady: boolean;
 };
 type AuthAction = {
   dispatch: {
-    type: string;
+    type: "LOGIN" | "LOGOUT" | "AUTH_IS_READY";
     payload: object | null;
   };
 };
@@ -18,10 +16,16 @@ type AuthContextProviderProps = {
   children: React.ReactNode;
 };
 type AuthContextType = {
-  user: object | null;
-  authIsReady: boolean;
-  dispatch: React.Dispatch<{ type: string; payload: object | null }>;
+  user: AuthState["user"];
+  authIsReady: AuthState["authIsReady"];
+  dispatch: React.Dispatch<{
+    type: AuthAction["dispatch"]["type"];
+    payload: AuthAction["dispatch"]["payload"];
+  }>;
 };
+
+export const AuthContext = createContext<AuthContextType | null>(null);
+
 export const authReducer = (
   state: AuthState,
   action: AuthAction["dispatch"]
@@ -30,7 +34,7 @@ export const authReducer = (
     case "LOGIN":
       return { ...state, user: action.payload };
     case "LOGOUT":
-      return { ...state, user: null };
+      return { ...state, user: action.payload };
     case "AUTH_IS_READY":
       return { ...state, authIsReady: true, user: action.payload };
     default:
