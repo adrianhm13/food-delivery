@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { CartContext} from "../../../context/CartContext";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -101,6 +102,11 @@ function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
   const [total, setTotal] = useState(priceTest);
 
   const uniqueId = Math.random().toLocaleString();
+
+  //Test add item to cart
+  const {state, dispatch} = useContext(CartContext)
+  console.log(state)
+  //
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
     e.stopPropagation();
