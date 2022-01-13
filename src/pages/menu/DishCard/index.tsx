@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { CartContext} from "../../../context/CartContext";
+import { CartContext } from "../../../context/CartContext";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -100,22 +100,34 @@ function DishInformation({ isExpanded }: DishInformationProps) {
 function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(priceTest);
+  const [options, setOptions] = useState<string[]>([]);
 
   const uniqueId = Math.random().toLocaleString();
 
   //Test add item to cart
-  const {state, dispatch} = useContext(CartContext)
-  console.log(state)
+  const { state, dispatch } = useContext(CartContext);
+  console.log(state);
   //
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
     e.stopPropagation();
     e.preventDefault();
+    let optionsChoosen: string[] = [];
     for (let [key] of formData.entries()) {
-      console.log(key); //add it to an array
+      options.push(key); //add it to an array
     }
-    console.log(total);
-    console.log(quantity);
+    setOptions(optionsChoosen);
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        id: 1,
+        title: "DishTitle",
+        pic: "DishPic",
+        price: total,
+        qty: quantity,
+        options,
+      },
+    });
     onExpanded(!onExpanded);
   };
 
