@@ -23,14 +23,13 @@ export default function Menu() {
           sx={{
             overflow: "auto",
             marginTop: "100px",
-            maxWidth: "300px",
+            width: "300px",
             padding: 1,
             display: "flex",
             flexDirection: "column",
           }}
         >
-          AABBBAABBBAABBBAABBBA AAABBBAABBBAABBBAABBBAAA
-          AAABBBAABBBAABBBAABBBAAA
+          Card List
         </Box>
       </Drawer>
       <Container maxWidth={"xl"}>
@@ -68,10 +67,18 @@ function PhoneDrawer() {
         <Box>A</Box>
       </Drawer>
       <Button
-        variant={"outlined"}
+        variant={"contained"}
         onClick={() => setIsOpen(true)}
         startIcon={<ShoppingBasketIcon />}
-        sx={{ display: { xs: "inline-flex", md: "none" }, width: 1 }}
+        sx={{
+          display: {
+            xs: "inline-flex",
+            md: "none",
+            position: "sticky",
+            bottom: 0,
+          },
+          width: '100%',
+        }}
       >
         Cart
       </Button>

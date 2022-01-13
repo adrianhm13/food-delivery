@@ -13,11 +13,18 @@ import NormalStepper from "../../components/Stepper";
 import Mockup from "../../assets/pictures/mockup-food-delivery2.png";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
+import  Button  from "@mui/material/Button";
 
 export default function Home() {
   return (
     <Container maxWidth={false} disableGutters>
-      <Box sx={{ backgroundColor: "primary.main", textAlign: "center", paddingTop: 8 }}>
+      <Box
+        sx={{
+          backgroundColor: "primary.main",
+          textAlign: "center",
+          paddingTop: 8,
+        }}
+      >
         <Typography
           paddingX={3}
           fontWeight={500}
@@ -84,9 +91,7 @@ function BackgroundPresentation() {
         <Fab
           variant="extended"
           color="secondary"
-          onClick={(event: React.MouseEvent<HTMLElement>) =>
-            history.push("/menu")
-          }
+          onClick={() => history.push("/menu")}
         >
           <DeliveryDiningOutlinedIcon sx={{ mr: 1 }} />
           Take Away!
@@ -129,6 +134,7 @@ function AppBox() {
         <Typography variant="h5" component="h3" color={"secondary.main"}>
           Get awesome discounts
         </Typography>
+        <Button variant="contained" color="secondary">Download</Button>
       </Box>
       <img src={Mockup} alt="mockup app" />
     </Box>
@@ -167,8 +173,18 @@ function Footer() {
   ];
 
   return (
-    <Box bgcolor={"secondary.main"} minHeight={"200px"}padding={5} textAlign="center">
-      <Grid container rowSpacing={1} columnSpacing={1} columns={{xs: 2, sm: 8, md: 12}}>
+    <Box
+      bgcolor={"secondary.main"}
+      minHeight={"200px"}
+      padding={5}
+      textAlign="center"
+    >
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={1}
+        columns={{ xs: 2, sm: 8, md: 12 }}
+      >
         {listLinks.map((link) => (
           <Grid item key={link} xs={2} sm={4} md={4}>
             <Link href="#" underline="hover">

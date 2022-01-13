@@ -9,20 +9,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-
-
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "1px solid #eceff1",
-  boxShadow: 24,
-  width: { xs: "240px", sm: "400px" },
-  p: 4,
-  borderRadius: "5px",
-};
+import * as Style from "./style"
 
 type ModalSignupProps = {
   openSignup: boolean;
@@ -55,7 +42,7 @@ export default function ModalLogin({
       BackdropProps={{ timeout: 500 }}
     >
       <Fade in={openSignup}>
-        <Box sx={style}>
+        <Box sx={Style.ModalContent}>
           <Typography
             id="transition-modal-title"
             variant="h5"

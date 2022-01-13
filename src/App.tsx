@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { Switch, BrowserRouter, Route } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
+// import { CartContextProvider } from "./context/CartContext";
 
 import { theme } from "./theme/theme";
 import "./App.css";
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      {/* <CartContextProvider> */}
       {authIsReady && (
         <BrowserRouter>
           <Layout>
@@ -33,6 +35,7 @@ function App() {
           </Layout>
         </BrowserRouter>
       )}
+      {/* </CartContextProvider> */}
     </ThemeProvider>
   );
 }
