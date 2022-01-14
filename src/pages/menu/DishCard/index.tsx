@@ -1,32 +1,41 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/CartContext";
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import CardHeader from "@mui/material/CardHeader";
-import TestPicture from "../../../assets/pictures/menu-background-small.jpg";
-import Collapse from "@mui/material/Collapse";
-import { ExpandMore } from "../style";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import ButtonGroup from "@mui/material/ButtonGroup";
+//Components
+import {
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  CardMedia,
+  Typography,
+  CardHeader,
+  Collapse,
+  FormLabel,
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  ButtonGroup,
+} from "@mui/material";
+
+//Icons
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import * as Style from "./style";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-type DishInformationProps = {
+//Style
+import * as Styled from "./style";
+import { ExpandMore } from "../style";
+
+//Images
+import TestPicture from "../../../assets/pictures/menu-background-small.jpg";
+
+export type DishInformationProps = {
   isExpanded: boolean;
 };
 
-type OptionsDishProps = {
+export type OptionsDishProps = {
   priceTest: number;
   onExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -40,22 +49,14 @@ export default function DishCard() {
   };
 
   return (
-    <Card sx={Style.Card}>
+    <Card sx={Styled.Card}>
       <CardActionArea onClick={() => handleExpandClick()} component="div">
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={Styled.CardContent}>
+          <Box display={"flex"} flexDirection={"column"}>
             <DishInformation isExpanded={isExpanded} />
             <Collapse
               unmountOnExit
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
+              onClick={(e) => e.stopPropagation()}
               in={isExpanded}
               timeout="auto"
             >
@@ -66,7 +67,7 @@ export default function DishCard() {
             component="img"
             image={TestPicture}
             alt="food dish"
-            sx={{ width: { xs: "40%", md: "25%" } }}
+            sx={Styled.CardImage}
           />
         </Box>
       </CardActionArea>
@@ -82,7 +83,7 @@ function DishInformation({ isExpanded }: DishInformationProps) {
         subheader="
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit sem in velit viverra, ut ultricies risus gravida. Nam convallis laoreet massa at facilisis. "
       />
-      <Box marginTop={1} sx={{ display: "flex", flexDirection: "row" }}>
+      <Box marginTop={1} display={"flex"} flexDirection={"row"}>
         <Typography variant={"h5"} padding={2} color={"secondary"}>
           $12
         </Typography>
@@ -180,7 +181,7 @@ function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
           </FormGroup>
         </form>
       </FormControl>
-      <Box sx={Style.QuantityDish}>
+      <Box sx={Styled.QuantityDish}>
         <ButtonGroup variant="text" color="secondary">
           <Button onClick={() => handleDecrement()}>
             <RemoveIcon />

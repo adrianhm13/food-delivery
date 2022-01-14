@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink as RouterLink } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,43 +17,26 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ModalLogin from "../ModalLogin";
 import ModalSignup from "../ModalSignup";
-import { useAuthContext } from "../../hooks/useAuthContext";
 
-const pages = ["Home", "Menu"];
-
-type NavMenuPagesPhoneProps = {
+export type NavMenuPagesPhoneProps = {
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
+  onAnchorElNav: (value: React.SetStateAction<HTMLElement | null>) => void;
   anchorElNav: HTMLElement | null;
-  handleCloseNavMenu: (page: string) => void;
 };
 
-type SettingsUserMenuProps = {
+export type SettingsUserMenuProps = {
   user: {
     displayName?: string;
   };
-};
-
-type NavMenuPagesProps = {
-  handleCloseNavMenu: (page: string) => void;
 };
 
 export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const { user } = useAuthContext();
-  const history = useHistory();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = (page: string) => {
-    if (page === "Home") {
-      history.push("/");
-    } else {
-      history.push(`/${page.toLowerCase()}`);
-    }
-    setAnchorElNav(null);
   };
 
   return (
@@ -61,12 +45,12 @@ export default function Navbar() {
         <Toolbar disableGutters>
           <LogoMdDevice />
           <NavMenuPagesPhone
+            onAnchorElNav={setAnchorElNav}
             anchorElNav={anchorElNav}
             handleOpenNavMenu={handleOpenNavMenu}
-            handleCloseNavMenu={handleCloseNavMenu}
           />
           <LogoSmDevice />
-          <NavMenuPages handleCloseNavMenu={handleCloseNavMenu} />
+          <NavMenuPages />
           {user && <SettingsUserMenu user={user} />}
           {!user && <SignInMenu />}
         </Toolbar>
@@ -78,7 +62,7 @@ export default function Navbar() {
 function NavMenuPagesPhone({
   handleOpenNavMenu,
   anchorElNav,
-  handleCloseNavMenu,
+  onAnchorElNav,
 }: NavMenuPagesPhoneProps) {
   return (
     <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -99,14 +83,19 @@ function NavMenuPagesPhone({
         keepMounted
         transformOrigin={{ vertical: "top", horizontal: "left" }}
         open={Boolean(anchorElNav)}
-        onClose={handleCloseNavMenu}
+        onClose={() => onAnchorElNav(null)}
         sx={{ display: { xs: "block", md: "none" } }}
       >
-        {pages.map((page) => (
-          <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
-            <Typography textAlign="center">{page}</Typography>
-          </MenuItem>
-        ))}
+        <MenuItem onClick={() => onAnchorElNav(null)}>
+          <Button component={RouterLink} exact to="/">
+            Home
+          </Button>
+        </MenuItem>
+        <MenuItem onClick={() => onAnchorElNav(null)}>
+          <Button component={RouterLink} exact to="/menu">
+            Menu
+          </Button>
+        </MenuItem>
       </Menu>
     </Box>
   );
@@ -119,13 +108,11 @@ function SettingsUserMenu(props: SettingsUserMenuProps) {
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-    console.log(event.currentTarget)
+    console.log(event.currentTarget);
   };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+
   return (
-    <Box sx={{ flexGrow: 0 }}>
+    <Box>
       <Tooltip title={`Check your profile ${props.user.displayName}`}>
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar
@@ -141,12 +128,12 @@ function SettingsUserMenu(props: SettingsUserMenuProps) {
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         transformOrigin={{ vertical: "top", horizontal: "right" }}
         open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
+        onClose={()=> setAnchorElUser(null)}
       >
-        <MenuItem onClick={handleCloseUserMenu}>
+        <MenuItem onClick={()=> setAnchorElUser(null)}>
           <Typography textAlign="center">Account</Typography>
         </MenuItem>
-        <MenuItem onClick={handleCloseUserMenu}>
+        <MenuItem onClick={()=> setAnchorElUser(null)}>
           <Typography textAlign="center">Orders</Typography>
         </MenuItem>
         <MenuItem onClick={logout}>
@@ -157,9 +144,10 @@ function SettingsUserMenu(props: SettingsUserMenuProps) {
   );
 }
 
-function NavMenuPages({ handleCloseNavMenu }: NavMenuPagesProps) {
+function NavMenuPages() {
   return (
     <Box
+    component="nav"
       sx={{
         flexGrow: 1,
         display: { xs: "none", md: "flex" },
@@ -167,15 +155,38 @@ function NavMenuPages({ handleCloseNavMenu }: NavMenuPagesProps) {
         marginRight: { md: "3rem" },
       }}
     >
-      {pages.map((page) => (
-        <Button
-          key={page}
-          onClick={() => handleCloseNavMenu(page)}
-          sx={{ my: 2, color: "text.primary", display: "block" }}
-        >
-          {page}
-        </Button>
-      ))}
+      <Button
+        component={RouterLink}
+        exact
+        to="/"
+        sx={{
+          my: 2,
+          color: "text.primary",
+          display: "block",
+          "&.active": {
+            backgroundColor: "secondary.main",
+            color: "common.white",
+          },
+        }}
+      >
+        Home
+      </Button>
+      <Button
+        component={RouterLink}
+        exact
+        to="/menu"
+        sx={{
+          my: 2,
+          color: "text.primary",
+          display: "block",
+          "&.active": {
+            backgroundColor: "secondary.main",
+            color: "common.white",
+          },
+        }}
+      >
+        Menu
+      </Button>
     </Box>
   );
 }

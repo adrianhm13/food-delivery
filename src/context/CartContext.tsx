@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 
-type CartContextProviderProps = {
+export type CartContextProviderProps = {
   children: React.ReactNode;
 };
 export type ProductType = {
@@ -22,7 +22,7 @@ export type CartAction =
   | { type: "DELETE_ITEM"; payload: ProductType[] }
   | { type: "UPDATE_TOTAL"; payload: number };
 
-type CartContextType = {
+export type CartContextType = {
     state: CartState,
     dispatch: React.Dispatch<CartAction>
 }
@@ -51,10 +51,7 @@ export const cartReducer = (state: CartState, action: CartAction) => {
 };
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [state, dispatch] = useReducer(cartReducer, {
-    total: 0,
-    listItems: [],
-  });
+  const [state, dispatch] = useReducer(cartReducer, initialValue);
 
   return (
     <CartContext.Provider value={{ state, dispatch }}>

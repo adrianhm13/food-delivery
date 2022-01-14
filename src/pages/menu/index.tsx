@@ -3,7 +3,10 @@ import DishCard from "./DishCard";
 import { Box, Container } from "@mui/material";
 import { DrawerDesktop } from "./DrawerDesktop";
 import { DrawerPhone } from "./DrawerPhone";
+
+//Style
 import * as Styled from "./style";
+
 export default function Menu() {
   return (
     <Container maxWidth={false} disableGutters>

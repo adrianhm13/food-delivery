@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { CartContext } from "../../../context/CartContext";
+
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { Button, Drawer } from "@mui/material";
+import { Badge, Button, Drawer } from "@mui/material";
 import { OrderList } from "../../../components/OrderList";
+import * as Styled from "./style";
 
 export function DrawerPhone() {
   const [isOpen, setIsOpen] = useState(false);
+  const { state: orders } = useContext(CartContext);
   return (
     <>
       <Drawer anchor="bottom" open={isOpen} onClose={() => setIsOpen(false)}>
@@ -13,17 +17,11 @@ export function DrawerPhone() {
       <Button
         variant={"contained"}
         onClick={() => setIsOpen(true)}
-        startIcon={<ShoppingBasketIcon />}
-        sx={{
-          display: {
-            xs: "inline-flex",
-            md: "none",
-            position: "sticky",
-            bottom: 0,
-          },
-          width: "100%",
-        }}
+        sx={Styled.CartButton}
       >
+        <Badge badgeContent={orders.listItems.length} color="secondary">
+          <ShoppingBasketIcon />
+        </Badge>
         Cart
       </Button>
     </>
