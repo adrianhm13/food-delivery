@@ -2,6 +2,8 @@ import { createContext, useEffect, useReducer } from "react";
 import { auth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
 
+// useLayout hook, loading state
+
 type AuthState = {
   user: object | null;
   authIsReady: boolean;

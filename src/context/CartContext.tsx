@@ -3,19 +3,19 @@ import React, { createContext, useReducer } from "react";
 type CartContextProviderProps = {
   children: React.ReactNode;
 };
-type ProductType = {
+export type ProductType = {
   id: number;
   title: string;
-  pic: string;
   price: number;
+  priceTotal: number;
   qty: number;
   options: string[]
 };
-type CartState = {
+export type CartState = {
   total: number;
   listItems: ProductType[];
 };
-type CartAction =
+export type CartAction =
   | { type: "ADD_ITEM"; payload: ProductType }
   | { type: "INCREASE_QTY"; payload: ProductType[] }
   | { type: "DECREASE_QTY"; payload: ProductType[] }

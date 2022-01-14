@@ -1,87 +1,27 @@
-import React, { useState } from "react";
-
 //Components
-import Container from "@mui/material/Container";
-import BackgroundMedium from "../../assets/pictures/menu-background.jpg";
-import BackgroundSmall from "../../assets/pictures/menu-background-small.jpg";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import DishCard from "./DishCard";
-
+import { Box, Container } from "@mui/material";
+import { DrawerDesktop } from "./DrawerDesktop";
+import { DrawerPhone } from "./DrawerPhone";
+import * as Styled from "./style";
 export default function Menu() {
   return (
     <Container maxWidth={false} disableGutters>
-      <HeaderBackground />
-      <Drawer
-        variant="permanent"
-        anchor="right"
-        sx={{ display: { xs: "none", md: "block" } }}
-      >
-        <Box
-          sx={{
-            overflow: "auto",
-            marginTop: "100px",
-            width: "300px",
-            padding: 1,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          Card List
-        </Box>
-      </Drawer>
+      <HeaderHero />
+      <DrawerDesktop />
       <Container maxWidth={"xl"}>
-        <Box paddingY={3} sx={{ paddingRight: { xs: "0", md: "300px" } }}>
+        <Box paddingY={3} sx={Styled.DishCardList}>
+          <DishCard />
+          <DishCard />
           <DishCard />
           <DishCard />
         </Box>
-        <PhoneDrawer />
+        <DrawerPhone />
       </Container>
     </Container>
   );
 }
 
-function HeaderBackground() {
-  return (
-    <Box
-      sx={{
-        backgroundImage: {
-          xs: `url(${BackgroundSmall})`,
-          md: `url(${BackgroundMedium})`,
-        },
-        backgroundSize: "cover",
-        backgroundPositionY: "60%",
-        height: "200px",
-      }}
-    />
-  );
-}
-
-function PhoneDrawer() {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <>
-      <Drawer anchor="bottom" open={isOpen} onClose={() => setIsOpen(false)}>
-        <Box>A</Box>
-      </Drawer>
-      <Button
-        variant={"contained"}
-        onClick={() => setIsOpen(true)}
-        startIcon={<ShoppingBasketIcon />}
-        sx={{
-          display: {
-            xs: "inline-flex",
-            md: "none",
-            position: "sticky",
-            bottom: 0,
-          },
-          width: '100%',
-        }}
-      >
-        Cart
-      </Button>
-    </>
-  );
+function HeaderHero() {
+  return <Box sx={Styled.HeaderHero} />
 }

@@ -30,6 +30,7 @@ type OptionsDishProps = {
   priceTest: number;
   onExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
 export default function DishCard() {
   const [isExpanded, setIsExpanded] = useState(false);
   const priceTest = 12;
@@ -110,11 +111,10 @@ function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
   //
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
-    e.stopPropagation();
     e.preventDefault();
     let optionsChoosen: string[] = [];
     for (let [key] of formData.entries()) {
-      options.push(key); //add it to an array
+      options.push(key);
     }
     setOptions(optionsChoosen);
     dispatch({
@@ -122,8 +122,8 @@ function OptionsDish({ priceTest, onExpanded }: OptionsDishProps) {
       payload: {
         id: 1,
         title: "DishTitle",
-        pic: "DishPic",
-        price: total,
+        price: priceTest,
+        priceTotal: total,
         qty: quantity,
         options,
       },
