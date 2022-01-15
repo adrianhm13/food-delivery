@@ -10,10 +10,3 @@ export const CardContent = {
 } as const
 
 export const CardImage = { width: { xs: "40%", md: "25%" } }
-
-export const QuantityDish = {
-  display: "flex",
-  flexDirection: "row",
-  gap: 1,
-  padding: 1,
-} as const;

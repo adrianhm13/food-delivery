@@ -1,27 +1,9 @@
 import { useLogin } from "../../hooks/useLogin";
-
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "1px solid #eceff1",
-  boxShadow: 24,
-  width: { xs: "240px", sm: "400px" },
-  p: 4,
-  borderRadius: "5px",
-};
+import { Backdrop, Box, Modal, Fade, Typography, Button } from "@mui/material";
+import * as Styled from "./style";
+import LoginForm from "./LoginForm";
 
 type ModalLoginProps = {
   openLogin: boolean;
@@ -53,7 +35,7 @@ export default function ModalLogin(props: ModalLoginProps) {
       BackdropProps={{ timeout: 500 }}
     >
       <Fade in={openLogin}>
-        <Box sx={style}>
+        <Box sx={Styled.ModalLoginContent}>
           <Typography
             id="transition-modal-title"
             variant="h5"
@@ -62,31 +44,14 @@ export default function ModalLogin(props: ModalLoginProps) {
           >
             Welcome back
           </Typography>
-          <form id="login-form" onSubmit={(e) => handleSubmit(e)}>
-            <Stack spacing={3}>
-              <TextField
-                id="outlined-email"
-                label="Email"
-                value={email}
-                required
-                type="email"
-                color="secondary"
-                variant="outlined"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <TextField
-                id="outlined-password"
-                label="Password"
-                value={password}
-                required
-                type="password"
-                color="secondary"
-                variant="outlined"
-                helperText={error}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Stack>
-          </form>
+          <LoginForm
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            error={error}
+            handleSubmit={handleSubmit}
+          />
           <Button
             sx={{ marginTop: 1 }}
             variant="contained"

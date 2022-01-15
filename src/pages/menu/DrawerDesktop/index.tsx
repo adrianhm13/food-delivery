@@ -1,7 +1,4 @@
-import React from "react";
-import {
-  Drawer,
-} from "@mui/material";
+import { Drawer } from "@mui/material";
 import * as Styled from "./style";
 import { OrderList } from "../../../components/OrderList";
 

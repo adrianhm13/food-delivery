@@ -1,15 +1,9 @@
 import React, { createContext, useReducer } from "react";
 
+import { ProductType } from "../types/ProductType";
+
 export type CartContextProviderProps = {
   children: React.ReactNode;
-};
-export type ProductType = {
-  id: number;
-  title: string;
-  price: number;
-  priceTotal: number;
-  qty: number;
-  options: string[]
 };
 export type CartState = {
   total: number;

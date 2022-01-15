@@ -1,29 +1,17 @@
-import React, { useContext, useEffect } from "react";
-import {
-  CartContext,
-  ProductType,
-  CartAction,
-  CartState,
-} from "../../context/CartContext";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import * as Styled from "./style";
-import {
-  List,
-  Button,
-  Box,
-  Divider,
-  ListItem,
-  Typography,
-  ButtonGroup,
-} from "@mui/material";
+import { useContext, useEffect } from "react";
 
-type ItemCartProps = {
-  orders: CartState;
-  item: ProductType;
-  dispatch: React.Dispatch<CartAction>;
-};
+//Types
+import { CartContext } from "../../context/CartContext";
+
+//Icons
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+
+//Style
+import * as Styled from "./style";
+
+//Components
+import { List, Button, Divider, Typography } from "@mui/material";
+import { ItemCart } from "./ItemCart";
 
 export function OrderList() {
   const { state: orders, dispatch } = useContext(CartContext);
@@ -45,13 +33,13 @@ export function OrderList() {
   // Update cart's total
   useEffect(() => {
     if (orders.listItems.length !== 0) {
-      const total = orders.listItems.reduce(
+      const totalCart = orders.listItems.reduce(
         (acc: number, item: { qty: number; priceTotal: number }) => {
           return acc + item.priceTotal;
         },
         0
       );
-      dispatch({ type: "UPDATE_TOTAL", payload: total });
+      dispatch({ type: "UPDATE_TOTAL", payload: totalCart });
     }
   }, [orders.listItems, dispatch]);
 
@@ -74,53 +62,5 @@ export function OrderList() {
         Total ${orders.total}.00
       </Button>
     </List>
-  );
-}
-
-function ItemCart(props: ItemCartProps) {
-  const { dispatch } = props;
-
-  const handleDecrease = (id: number) => {
-    const updatedListItems = [...props.orders.listItems].map((item) => {
-      if (item.id === id) {
-        item.qty = item.qty - 1;
-        item.priceTotal = item.price * item.qty;
-      }
-      return item;
-    });
-    dispatch({ type: "DECREASE_QTY", payload: updatedListItems });
-  };
-
-  const handleIncrease = (id: number) => {
-    const updatedListItems = [...props.orders.listItems].map((item) => {
-      if (item.id === id) {
-        item.qty = item.qty + 1;
-        item.priceTotal = item.price * item.qty;
-      }
-      return item;
-    });
-    dispatch({ type: "INCREASE_QTY", payload: updatedListItems });
-  };
-  return (
-    <ListItem divider sx={Styled.ListItem}>
-      <Typography variant={"subtitle1"}>{props.item.title}</Typography>
-      <Typography variant={"body2"} color="grey.500">
-        {props.item.options.join(" ").toLowerCase()}
-      </Typography>
-      <Box sx={Styled.QuantityPrice}>
-        <ButtonGroup variant="text" color="secondary" size="small">
-          <Button onClick={() => handleDecrease(props.item.id)}>
-            <RemoveIcon />
-          </Button>
-          <Button disabled>{props.item.qty}</Button>
-          <Button onClick={() => handleIncrease(props.item.id)}>
-            <AddIcon />
-          </Button>
-        </ButtonGroup>
-        <Typography variant={"subtitle1"} color="secondary">
-          ${props.item.priceTotal}.00
-        </Typography>
-      </Box>
-    </ListItem>
   );
 }

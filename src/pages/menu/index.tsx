@@ -6,18 +6,20 @@ import { DrawerPhone } from "./DrawerPhone";
 
 //Style
 import * as Styled from "./style";
+import { useGetProducts } from "../../hooks/useGetProducts";
+
+
 
 export default function Menu() {
+  const {products} = useGetProducts()
   return (
     <Container maxWidth={false} disableGutters>
       <HeaderHero />
       <DrawerDesktop />
       <Container maxWidth={"xl"}>
         <Box paddingY={3} sx={Styled.DishCardList}>
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
+          {/* Map to show DishCard with dish information as prop */}
+          {products && products.map(product => (<DishCard product={product}/>))}
         </Box>
         <DrawerPhone />
       </Container>

@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer } from "react";
 import { auth } from "../firebase/config";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, User } from "firebase/auth";
 
 // useLayout hook, loading state
 
@@ -11,7 +11,7 @@ type AuthState = {
 type AuthAction = {
   dispatch: {
     type: "LOGIN" | "LOGOUT" | "AUTH_IS_READY";
-    payload: object | null;
+    payload: User | null;
   };
 };
 type AuthContextProviderProps = {

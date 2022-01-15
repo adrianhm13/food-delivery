@@ -1,0 +1,1 @@
+export const Logo = { flexGrow: 1, display: { xs: "flex", md: "none" } }
