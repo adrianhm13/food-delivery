@@ -1,46 +1,90 @@
-# Getting Started with Create React App
+# Food Delivery App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Mockup](./src/assets/pictures/readme/Mockup_Food_Delivery.jpg)
 
-## Available Scripts
+<p align="left">You can test the app by clicking the following link -> <a href="https://food-delivery-3d3f4.web.app/">Live Preview</a></p>
 
-In the project directory, you can run:
+## Technologies
 
-### `npm start`
+  <table>
+<tr>
+    <td align="center"height="108px" width="108px">
+      <img
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+        width="48"
+        height="48"
+        alt="Typescript"
+      />
+      <br /><strong>Typescript</strong>
+    </td>
+    <td align="center"height="108px" width="108px">
+      <img
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg"
+        width="48"
+        height="48"
+        alt="JavaScript"
+      />
+      <br /><strong>JavaScript</strong>
+    </td>
+    <td align="center"height="108px" width="108px">
+      <img
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+        width="48"
+        height="48"
+        alt="React"
+      />
+      <br /><strong>React</strong>
+    </td>
+        <td align="center" height="108px" width="108px">
+      <img
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg"
+        width="48"
+        height="48"
+        alt="HTML"
+      />
+      <br /><strong>HTML5</strong>
+    </td>
+        <td align="center"height="108px" width="108px">
+      <img
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg"
+        width="48"
+        height="48"
+        alt="CSS3"
+      />
+      <br /><strong>CSS3</strong>
+    </td>
+        <td align="center"height="108px" width="108px">
+      <img
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg"
+        width="48"
+        height="48"
+        alt="MaterialUI"
+      />
+      <br /><strong>MaterialUI</strong>
+    </td>
+        <td align="center" height="108" width="108">
+      <img
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"
+        width="48"
+        height="48"
+        alt="Firebase"
+      />
+      <br /><strong>Firebase</strong>
+    </td>
+</tr>
+</table>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Food delivery app which I created to learn Typescript and MaterialUI. Typescript it's wild but it's a tool that provides me security while writing code and it can be used as documentation to know in each step what are you passing to your components.
 
-### `npm test`
+In this app you can order the food you want, with their own options such different kind of sauces.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Planned features
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] Admin Dashboard
+    - [ ] Handle orders from an admin account
+    - [ ] Sales report in graphic's form
+- [ ] User Dashboard
+    - [ ] The user will be able to change his address.
+    - [ ] Orders page to see the status of the order along the previous orders that the user has made.

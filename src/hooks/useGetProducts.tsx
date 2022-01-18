@@ -15,7 +15,6 @@ export const useGetProducts = () => {
   const [products, setProducts] = useState<Dish[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isCancelled, setIsCancelled] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);

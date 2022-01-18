@@ -51,7 +51,7 @@ export function OrderList() {
       <Divider />
       {listItems &&
         listItems.map((item) => (
-          <ItemCart item={item} dispatch={dispatch} orders={orders} />
+          <ItemCart item={item} key={item.id} dispatch={dispatch} orders={orders} />
         ))}
       <Divider />
       <Button

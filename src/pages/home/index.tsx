@@ -1,21 +1,16 @@
 import { useHistory } from "react-router-dom";
-import React from "react";
+
+//Icons
+import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
 
 //Components
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import Fab from "@mui/material/Fab";
-import DeliveryDiningOutlinedIcon from "@mui/icons-material/DeliveryDiningOutlined";
-import Typography from "@mui/material/Typography";
+import {Button, Grid, Link, Typography, Box, Fab, Container} from "@mui/material"
+import NormalStepper from "../../components/Stepper";
+
+//Images
 import PictureBigSize from "../../assets/pictures/davide-cantelli-jpkfc5_d-DI-unsplash.jpg";
 import PictureSmallSize from "../../assets/pictures/davide-cantelli-jpkfc5_d-DI-unsplash-small.jpg";
-import NormalStepper from "../../components/Stepper";
 import Mockup from "../../assets/pictures/mockup-food-delivery2.png";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import  Button  from "@mui/material/Button";
-
-//Material UI Tree Shaking,
 
 export default function Home() {
   return (

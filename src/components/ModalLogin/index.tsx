@@ -1,5 +1,5 @@
 import { useLogin } from "../../hooks/useLogin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Backdrop, Box, Modal, Fade, Typography, Button } from "@mui/material";
 import * as Styled from "./style";
@@ -16,20 +16,25 @@ export default function ModalLogin(props: ModalLoginProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { error, login, isPending } = useLogin();
+  const { user, error, login, isPending } = useLogin();
 
-  const handleClose = () => onOpenLogin(false);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = login(email, password);
-    response.then(() => onOpenLogin(false));
+    login(email, password);
   };
+
+  useEffect(() => {
+    if (user) {
+      onOpenLogin(false);
+    }
+  }, [user, onOpenLogin]);
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={openLogin}
-      onClose={handleClose}
+      onClose={() => onOpenLogin(false)}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{ timeout: 500 }}

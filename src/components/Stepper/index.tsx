@@ -1,22 +1,24 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
 
 const steps = [
-  'Be hungry',
-  'Pick the food you want the most',
-  'Wait while we are preparing it for you!',
+  "Be hungry",
+  "Pick the food you want the most",
+  "Wait while we are preparing it for you!",
 ];
 
 export default function NormalStepper() {
   return (
-    <Box sx={{ width: '100%'}}>
+    <Box sx={{ width: "100%" }}>
       <Stepper activeStep={1} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel sx={{ "& svg": { fontSize: "2rem" } }}>
+              {label}
+            </StepLabel>
           </Step>
         ))}
       </Stepper>

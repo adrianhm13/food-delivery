@@ -27,16 +27,6 @@ export type DishOptionsProps = {
   onExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export type FormOptionsProps = {
-  optionsDish: string[];
-  uniqueId: string;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-};
-
-type OptionCheckBoxProps = {
-  optionDish: string
-}
-
 export function DishOptions(props: DishOptionsProps) {
   const { price, optionsDish, onExpanded, title } = props;
 
@@ -44,9 +34,9 @@ export function DishOptions(props: DishOptionsProps) {
   const [total, setTotal] = useState(price);
   const [options, setOptions] = useState<string[]>([]);
 
-  const uniqueId = Math.random().toLocaleString();
+  const uniqueId = Math.random().toString(16).slice(2);
 
-  const { state, dispatch } = useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
@@ -114,15 +104,22 @@ export function DishOptions(props: DishOptionsProps) {
   );
 }
 
+export type FormOptionsProps = {
+  optionsDish: string[];
+  uniqueId: string;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+};
+
 function FormOptions(props: FormOptionsProps) {
   const { uniqueId, handleSubmit, optionsDish } = props;
+  console.log(uniqueId);
   return (
     <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
       <FormLabel component="legend">Pick your options</FormLabel>
       <form id={uniqueId} onSubmit={handleSubmit}>
         <FormGroup row>
           {optionsDish.map((optionDish) => (
-            <OptionCheckbox optionDish={optionDish} />
+            <OptionCheckbox key={optionDish} optionDish={optionDish} />
           ))}
         </FormGroup>
       </form>
@@ -130,6 +127,9 @@ function FormOptions(props: FormOptionsProps) {
   );
 }
 
+type OptionCheckBoxProps = {
+  optionDish: string;
+};
 function OptionCheckbox({ optionDish }: OptionCheckBoxProps) {
   return (
     <FormControlLabel

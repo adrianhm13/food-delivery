@@ -46,7 +46,7 @@ export function ItemCart(props: ItemCartProps) {
     <ListItem divider sx={Styled.ListItem}>
       <Typography variant={"subtitle1"}>{props.item.title}</Typography>
       <Typography variant={"body2"} color="grey.500">
-        {props.item.options.join(" ").toLowerCase()}
+        {props.item.options.join(", ").toLowerCase()}
       </Typography>
       <Box sx={Styled.QuantityPrice}>
         <ButtonGroup variant="text" color="secondary" size="small">

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/config";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, User } from "firebase/auth";
 import { useAuthContext } from "./useAuthContext";
 
 export const useLogin = () => {
+  const [user, setUser] = useState<User | null>(null)
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
   const [isCancelled, setIsCancelled] = useState(false);
@@ -16,6 +17,7 @@ export const useLogin = () => {
     try {
       //Login user
       const response = await signInWithEmailAndPassword(auth, email, password);
+      setUser(response.user)
       //Dispatch login action
       dispatch({ type: "LOGIN", payload: response.user });
 
@@ -37,5 +39,5 @@ export const useLogin = () => {
     return () => setIsCancelled(true);
   }, []);
 
-  return { error, login, isPending };
+  return { user, error, login, isPending };
 };

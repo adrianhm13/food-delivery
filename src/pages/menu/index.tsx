@@ -19,7 +19,7 @@ export default function Menu() {
       <Container maxWidth={"xl"}>
         <Box paddingY={3} sx={Styled.DishCardList}>
           {/* Map to show DishCard with dish information as prop */}
-          {products && products.map(product => (<DishCard product={product}/>))}
+          {products && products.map(product => (<DishCard key={product.id} product={product}/>))}
         </Box>
         <DrawerPhone />
       </Container>
